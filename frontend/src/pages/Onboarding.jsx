@@ -109,7 +109,7 @@ export default function Onboarding() {
 
   try {
     const response = await fetch(
-      "http://127.0.0.1:8000/profile",
+      `${import.meta.env.VITE_API_URL}/profile`,
       {
         method: "POST",
         headers: {

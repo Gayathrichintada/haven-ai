@@ -24,7 +24,7 @@ export default function EditProfile() {
     const fetchProfile = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/profile/${userId}`,
+          `${import.meta.env.VITE_API_URL}/profile/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -69,19 +69,18 @@ export default function EditProfile() {
   };
 
   const handleSave = async () => {
-    try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/profile/${userId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type":
-              "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(profile),
-        }
-      );
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/profile/${userId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(profile),
+      }
+    );
 
       if (!response.ok) {
         throw new Error(

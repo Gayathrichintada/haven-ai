@@ -1,67 +1,56 @@
-const API_BASE_URL = "http://127.0.0.1:8000";
+import axios from "axios";
 
-export async function createProfile(
-  profileData
-) {
-  const response = await fetch(
-    `${API_BASE_URL}/profile`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(profileData),
-    }
-  );
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+});
 
-  if (!response.ok) {
-    throw new Error(
-      "Failed to create profile"
-    );
-  }
-
-  return response.json();
-}
-
-export async function sendMessage(data) {
+api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 
-  const response = await fetch(
-    `${API_BASE_URL}/chat`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error(
-      "Failed to send message"
-    );
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
 
-  return response.json();
-}
-export const createChatSession = async (profileId) => {
-  const res = await api.post("/chat-session", {
-    profile_id: profileId,
-  });
+  return config;
+});
 
-  return res.data;
-};
+// Auth
+export const registerUser = (data) =>
+  api.post("/register", data);
 
-export const getChatSessions = async (profileId) => {
-  const res = await api.get(
-    `/chat-sessions/${profileId}`
-  );
+export const loginUser = (data) =>
+  api.post("/login", data);
 
-  return res.data;
-};
+// Profile
+export const createProfile = (data) =>
+  api.post("/profile", data);
 
-export const deleteChatSession = async (chatId) => {
-  await api.delete(`/chat-session/${chatId}`);
-};
+export const getProfile = (userId) =>
+  api.get(`/profile/${userId}`);
+
+export const updateProfile = (userId, data) =>
+  api.put(`/profile/${userId}`, data);
+
+export const profileExists = (userId) =>
+  api.get(`/profile/${userId}/exists`);
+
+// Chat
+export const sendMessage = (formData) =>
+  api.post("/chat", formData);
+
+export const getChatSessions = (profileId) =>
+  api.get(`/chat-sessions/${profileId}`);
+
+export const getConversation = (
+  profileId,
+  chatId
+) => api.get(`/conversations/${profileId}/${chatId}`);
+
+export const deleteChatSession = (chatId) =>
+  api.delete(`/chat-session/${chatId}`);
+
+// Insights
+export const getInsights = (profileId) =>
+  api.get(`/insights/${profileId}`);
+
+export default api;

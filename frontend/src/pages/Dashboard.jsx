@@ -109,7 +109,7 @@ useEffect(() => {
   const deleteSession = async (chatId) => {
   try {
     await fetch(
-      `http://127.0.0.1:8000/chat-session/${chatId}`,
+      `${import.meta.env.VITE_API_URL}/chat-session/${chatId}`,
       {
         method: "DELETE",
       }
@@ -164,7 +164,7 @@ useEffect(() => {
       if (!profileId) return;
 
       const response = await fetch(
-        `http://127.0.0.1:8000/insights/${profileId}`
+        `${import.meta.env.VITE_API_URL}/insights/${profileId}`
       );
 
       if (!response.ok) return;
@@ -192,7 +192,7 @@ useEffect(() => {
     if (!profileId) return;
 
     const response = await fetch(
-  `http://127.0.0.1:8000/conversations/${profileId}/${currentChatId}`
+  `${import.meta.env.VITE_API_URL}/conversations/${profileId}/${currentChatId}`
 );
 
     const data = await response.json();
@@ -251,7 +251,7 @@ const loadSessions = async () => {
       localStorage.getItem("profileId");
 
     const response = await fetch(
-      `http://127.0.0.1:8000/chat-sessions/${profileId}`
+      `${import.meta.env.VITE_API_URL}/chat-sessions/${profileId}`
     );
 
     const data = await response.json();
@@ -372,7 +372,7 @@ if (selectedImage) {
 
 const response =
   await fetchWithRetry(
-    "http://127.0.0.1:8000/chat",
+    `${import.meta.env.VITE_API_URL}/chat`,
     {
       method: "POST",
 

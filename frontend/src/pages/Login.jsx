@@ -27,7 +27,7 @@ export default function Login() {
 
   try {
     const response = await fetch(
-      "http://127.0.0.1:8000/login",
+      `${import.meta.env.VITE_API_URL}/login`,
       {
         method: "POST",
         headers: {
@@ -56,7 +56,7 @@ export default function Login() {
     );
 
     const existsResponse = await fetch(
-      `http://127.0.0.1:8000/profile/${data.user_id}/exists`,
+      `${import.meta.env.VITE_API_URL}/profile/${data.user_id}/exists`,
       {
         headers: {
           Authorization: `Bearer ${data.access_token}`,
@@ -75,7 +75,7 @@ export default function Login() {
 
     if (existsData.exists) {
       const profileResponse = await fetch(
-        `http://127.0.0.1:8000/profile/${data.user_id}`,
+        `${import.meta.env.VITE_API_URL}/profile/${data.user_id}`,
         {
           headers: {
             Authorization: `Bearer ${data.access_token}`,
@@ -102,16 +102,24 @@ export default function Login() {
         JSON.stringify(profile)
       );
 
-      if (profile._id) {
-        localStorage.setItem(
-          "profileId",
-          profile._id
-        );
-      } else {
-        console.error(
-          "Profile ID missing from backend response."
-        );
-      }
+      const profileId =
+  profile._id ||
+  profile.id ||
+  profile.profile_id;
+
+console.log("Loaded profile:", profile);
+console.log("Profile ID:", profileId);
+
+if (!profileId) {
+  console.error(
+    "Profile ID missing from backend response."
+  );
+} else {
+  localStorage.setItem(
+    "profileId",
+    profileId
+  );
+}
 
       localStorage.removeItem(
         "chatId"
