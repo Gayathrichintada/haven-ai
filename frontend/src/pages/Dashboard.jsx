@@ -818,11 +818,20 @@ style={{ backgroundColor: currentTheme.card }}>
     }
   }}
   placeholder="Message Haven..."
-style={{
-  backgroundColor: currentTheme.card,
-  color: currentTheme.text,
-}}
-  />
+  className="
+    flex-1
+    h-14
+    px-5
+    rounded-2xl
+    outline-none
+    text-lg
+    placeholder:text-gray-400
+  "
+  style={{
+    backgroundColor: currentTheme.card,
+    color: currentTheme.text,
+  }}
+/>
 
   <button
     onClick={handleSend}

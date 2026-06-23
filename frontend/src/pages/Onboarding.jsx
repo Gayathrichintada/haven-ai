@@ -131,10 +131,9 @@ export default function Onboarding() {
     }
 
     localStorage.setItem(
-      "havenProfile",
-      JSON.stringify(data)
-    );
-
+  "havenProfile",
+  JSON.stringify(finalProfile)
+);
     localStorage.setItem(
       "profileId",
       data._id
