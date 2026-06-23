@@ -105,6 +105,7 @@ export default function Onboarding() {
     ...profile,
     support_ranking: ranking,
     user_id: userId,
+    theme: "midnight",
   };
 
   try {
@@ -366,38 +367,7 @@ export default function Onboarding() {
                 </option>
               </select>
 
-              <div>
-                <label className="block mb-3">
-                  Choose your Haven theme
-                </label>
-
-                <div className="grid grid-cols-2 gap-3">
-                  {[
-                    "midnight",
-                    "ocean",
-                    "frost",
-                    "love",
-                  ].map((theme) => (
-                    <button
-                      key={theme}
-                      type="button"
-                      onClick={() =>
-                        setProfile({
-                          ...profile,
-                          theme,
-                        })
-                      }
-                      className={`p-4 rounded-xl border capitalize transition ${
-                        profile.theme === theme
-                          ? "border-green-500 bg-green-500/20"
-                          : "border-white/10 bg-white/5"
-                      }`}
-                    >
-                      {theme}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              
             </div>
           )}
 
