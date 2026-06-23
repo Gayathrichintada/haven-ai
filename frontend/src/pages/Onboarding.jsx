@@ -171,30 +171,24 @@ export default function Onboarding() {
           className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8"
         >
           {step === 1 && (
-            <div className="space-y-6">
-              <h1 className="text-4xl font-bold text-center">
-                What should Haven call you?
-              </h1>
+  <div className="space-y-6">
+    <h1 className="text-4xl font-bold text-center">
+      What should Haven call you?
+    </h1>
 
-              <input
-  value={profile.name}
-  onChange={(e) =>
-    setProfile({
-      ...profile,
-      name: e.target.value,
-    })
-  }
-  onKeyDown={(e) => {
-    if (e.key === "Enter") {
-      nextStep();
-    }
-  }}
-  placeholder="Your name"
-  className="w-full p-4 rounded-2xl bg-white/10 outline-none border border-transparent focus:border-green-500"
-/>
-            </div>
-          )}
-
+    <input
+      value={profile.name}
+      onChange={(e) =>
+        setProfile({
+          ...profile,
+          name: e.target.value,
+        })
+      }
+      placeholder="Your name"
+      className="w-full p-4 rounded-2xl bg-white/10 outline-none"
+    />
+  </div>
+)}
           {step === 2 && (
             <div className="space-y-6">
               <h1 className="text-3xl font-bold text-center">
