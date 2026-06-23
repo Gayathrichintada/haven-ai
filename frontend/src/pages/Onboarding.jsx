@@ -338,43 +338,50 @@ export default function Onboarding() {
             </div>
           )}
 
-         <select
-  value={profile.support_style}
-  onChange={(e) =>
-    setProfile({
-      ...profile,
-      support_style: e.target.value,
-    })
-  }
-  onKeyDown={(e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleFinish();
-    }
-  }}
-  className="w-full p-4 rounded-2xl bg-slate-800"
->
-  <option value="">
-    Choose a style
-  </option>
+        {step === 5 && (
+  <div className="space-y-6">
+    <h1 className="text-3xl font-bold text-center">
+      How should Haven support you?
+    </h1>
 
-  <option value="Listener">
-    Listener
-  </option>
+    <select
+      value={profile.support_style}
+      onChange={(e) =>
+        setProfile({
+          ...profile,
+          support_style: e.target.value,
+        })
+      }
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          handleFinish();
+        }
+      }}
+      className="w-full p-4 rounded-2xl bg-slate-800"
+    >
+      <option value="">
+        Choose a style
+      </option>
 
-  <option value="Coach">
-    Coach
-  </option>
+      <option value="Listener">
+        Listener
+      </option>
 
-  <option value="Motivator">
-    Motivator
-  </option>
+      <option value="Coach">
+        Coach
+      </option>
 
-  <option value="Accountability Partner">
-    Accountability Partner
-  </option>
-</select>
+      <option value="Motivator">
+        Motivator
+      </option>
 
+      <option value="Accountability Partner">
+        Accountability Partner
+      </option>
+    </select>
+  </div>
+)}
           <div className="flex justify-between mt-10">
             {step > 1 ? (
               <button
