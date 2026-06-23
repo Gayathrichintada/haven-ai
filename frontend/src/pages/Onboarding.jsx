@@ -177,16 +177,21 @@ export default function Onboarding() {
               </h1>
 
               <input
-                value={profile.name}
-                onChange={(e) =>
-                  setProfile({
-                    ...profile,
-                    name: e.target.value,
-                  })
-                }
-                placeholder="Your name"
-                className="w-full p-4 rounded-2xl bg-white/10 outline-none border border-transparent focus:border-green-500"
-              />
+  value={profile.name}
+  onChange={(e) =>
+    setProfile({
+      ...profile,
+      name: e.target.value,
+    })
+  }
+  onKeyDown={(e) => {
+    if (e.key === "Enter") {
+      nextStep();
+    }
+  }}
+  placeholder="Your name"
+  className="w-full p-4 rounded-2xl bg-white/10 outline-none border border-transparent focus:border-green-500"
+/>
             </div>
           )}
 
@@ -229,6 +234,11 @@ export default function Onboarding() {
                 <>
                   <input
                     placeholder="What are you studying?"
+                    onKeyDown={(e) => {
+  if (e.key === "Enter") {
+    nextStep();
+  }
+}}
                     value={profile.field}
                     onChange={(e) =>
                       setProfile({
@@ -241,6 +251,11 @@ export default function Onboarding() {
 
                   <input
                     placeholder="Which year are you in?"
+                    onKeyDown={(e) => {
+  if (e.key === "Enter") {
+    nextStep();
+  }
+}}
                     value={profile.year}
                     onChange={(e) =>
                       setProfile({
@@ -329,46 +344,42 @@ export default function Onboarding() {
             </div>
           )}
 
-          {step === 5 && (
-            <div className="space-y-6">
-              <h1 className="text-3xl font-bold text-center">
-                How should Haven support you?
-              </h1>
+         <select
+  value={profile.support_style}
+  onChange={(e) =>
+    setProfile({
+      ...profile,
+      support_style: e.target.value,
+    })
+  }
+  onKeyDown={(e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleFinish();
+    }
+  }}
+  className="w-full p-4 rounded-2xl bg-slate-800"
+>
+  <option value="">
+    Choose a style
+  </option>
 
-              <select
-                value={profile.support_style}
-                onChange={(e) =>
-                  setProfile({
-                    ...profile,
-                    support_style: e.target.value,
-                  })
-                }
-                className="w-full p-4 rounded-2xl bg-slate-800"
-              >
-                <option value="">
-                  Choose a style
-                </option>
+  <option value="Listener">
+    Listener
+  </option>
 
-                <option value="Listener">
-                  Listener
-                </option>
+  <option value="Coach">
+    Coach
+  </option>
 
-                <option value="Coach">
-                  Coach
-                </option>
+  <option value="Motivator">
+    Motivator
+  </option>
 
-                <option value="Motivator">
-                  Motivator
-                </option>
-
-                <option value="Accountability Partner">
-                  Accountability Partner
-                </option>
-              </select>
-
-              
-            </div>
-          )}
+  <option value="Accountability Partner">
+    Accountability Partner
+  </option>
+</select>
 
           <div className="flex justify-between mt-10">
             {step > 1 ? (
