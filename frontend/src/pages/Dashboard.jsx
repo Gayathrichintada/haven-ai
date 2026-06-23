@@ -203,7 +203,9 @@ useEffect(() => {
       setMessages([
         {
           role: "assistant",
-          text: `Hello ${profile.name} 👋
+          text: `Hello ${
+  profile?.preferred_name || "Friend"
+} 👋
 
 I'm Haven.
 
@@ -434,13 +436,13 @@ if (isVoiceMessage) {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("profileId");
-    localStorage.removeItem("havenProfile");
+  localStorage.removeItem("token");
+  localStorage.removeItem("userId");
+  localStorage.removeItem("profileId");
+  localStorage.removeItem("havenProfile");
 
-    window.location.href = "/login";
-  };
+  navigate("/login");
+};
 
   const getMoodEmoji = (mood) => {
     switch (mood) {
@@ -592,7 +594,7 @@ style={{ backgroundColor: currentTheme.card }}
   style={{ backgroundColor: currentTheme.card }}
 >
           <h2 className="text-xl font-bold mb-3">
-            👋 {profile.name}
+            👋 {profile?.preferred_name || "Friend"}
           </h2>
 
           <div
