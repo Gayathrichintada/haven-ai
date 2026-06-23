@@ -197,24 +197,24 @@ useEffect(() => {
 
     const data = await response.json();
 
-    const history = data.messages || [];
+const history = data.messages || [];
 
-    if (history.length === 0) {
-      setMessages([
-        {
-          role: "assistant",
-          text: `Hello ${
-  profile?.preferred_name || "Friend"
-} 👋
+if (history.length === 0) {
+  setMessages([
+    {
+      role: "assistant",
+      text: `Hello ${
+        profile?.name || "Friend"
+      } 👋,
 
 I'm Haven.
 
 How are you feeling today?`,
-        },
-      ]);
+    },
+  ]);
 
-      return;
-    }
+  return;
+}
 
     const formatted = history.flatMap(
       (item) => {
@@ -593,9 +593,9 @@ style={{ backgroundColor: currentTheme.card }}
   className="p-4 rounded-xl"
   style={{ backgroundColor: currentTheme.card }}
 >
-          <h2 className="text-xl font-bold mb-3">
-            👋 {profile?.preferred_name || "Friend"}
-          </h2>
+          <h2>
+  👋 {profile?.name || "Friend"}
+</h2>
 
           <div
   className="space-y-2 text-sm"
@@ -811,8 +811,13 @@ style={{ backgroundColor: currentTheme.card }}>
     setInput(e.target.value);
     setIsVoiceMessage(false);
   }}
-    placeholder="Message Haven..."
-   className="flex-1 p-4 rounded-2xl outline-none"
+  onKeyDown={(e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSend();
+    }
+  }}
+  placeholder="Message Haven..."
 style={{
   backgroundColor: currentTheme.card,
   color: currentTheme.text,
